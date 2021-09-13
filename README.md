@@ -1,7 +1,7 @@
 # zinobe-challenge
 Python/Pandas, Python/request test
 
-|  Region | City Name |  Languaje | Time  |
+|  Region | Country |  Languaje | Time  |
 |---|---|---|---|
 |  Africa | Angola  |  AF4F4762F9BD3F0F4A10CAF5B6E63DC4CE543724 | 0.23 ms  |
 |   |   |   |   |
