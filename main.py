@@ -3,7 +3,7 @@ from rest_test.api import Countries
 from pandas_test.table import DataFrame
 
 
-def main():
+def main()->None:
     countries = Countries().CountryList()
     countries_list = []
     for country in countries:

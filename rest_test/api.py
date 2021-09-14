@@ -4,6 +4,9 @@ import requests
 import json
 # librería de hashes
 import hashlib
+# types
+from collections.abc import Iterable
+from .decorator import TimeTaken
 
 
 class Countries:
@@ -17,15 +20,15 @@ class Countries:
 
     métodos de la clase:
 
-    region_list -> devuelve la lista de regiones
+    CountryList -> devuelve la lista de países
+
     NOTA: En la V2 es en la que vamos a trabajar
-    single_country -> Devuelve un país de una región
     '''
     # URL = 'https://restcountries.com/v2/'
     URL = 'https://restcountries.com/v2/all?fields=region,name,capital,languages'
 
     @classmethod
-    def CountryList(self:object)->object:
+    def CountryList(self:object)->Iterable:
         '''
         Devuelve la lista de objetos de los países con las características del
         ejercicio
