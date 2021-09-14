@@ -1,7 +1,12 @@
-import request
+# para hacer los request de la página
+import requests
+# codificador json
 import json
+# librería de hashes
+import hashlib
 
-class api_country:
+
+class Countries:
     '''
     En esta clase se va a formar toda la URL para la búsqueda de la información
 
@@ -20,12 +25,66 @@ class api_country:
     URL = 'https://restcountries.com/v2/all?fields=region,name,capital,languages'
 
     @classmethod
-    def country_list():
-        response = request.get(URL)
+    def CountryList(self:object)->object:
+        '''
+        Devuelve la lista de objetos de los países con las características del
+        ejercicio
+
+        argumentos:
+        el objeto mismo
+
+        retorna:
+        la lista de países de la siguiente manera
+        country.region
+        country.name
+        country.capital
+        country.languages
+        country.HashedLanguage() -> método del objeto
+        '''
+        response = requests.get(self.URL)
         if response.status_code == 200:
-            countries = []
             data = json.loads(response.text)
-            for element in data:
-                country = Country(element)
-                countries.append(country)
-        return countries
+            country_list = []
+            for country_info in data:
+                country = Country(country_info)
+                country_list.append(country)
+            return country_list
+        else:
+            return {'message':'error en el request'}
+
+class Country:
+    '''
+    Devuelve cada uno de los países presentes en la data descargada en
+    CountryList con la siguiente información:
+
+    region -> str
+    nombre del país -> str
+    idiomas en hash -> str
+    '''
+    def HashedLanguage(self:object)->str:
+        '''
+        Entrega hasheada la lista de lenguajes o el lenguaje único del país en
+        un sólo string
+
+        argumentos:
+        lista de lenguajes.
+
+        retorna:
+        string con el hash
+        '''
+        languages_list = []
+        for language in self.languages:
+            name = language.get('name')
+            languages_list.append(name)
+        empty_string = ''
+        for language in languages_list:
+            empty_string += language
+        hash_object = hashlib.sha1(empty_string.encode())
+        hashed_language = hash_object.hexdigest()
+        return hashed_language
+
+    def __init__(self:object, data:dict)->object:
+        self.region: ClassVar[str] = data.get('region')
+        self.name: ClassVar[str] = data.get('name')
+        self.capital: ClassVar[str] = data.get('capital')
+        self.languages: ClassVar[str] = data.get('languages')

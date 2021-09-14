@@ -1,28 +1,23 @@
 #!/usr/bin/env python
-import requests, json
+from rest_test.api import Countries
+from pandas_test.table import DataFrame
 
-region_list = ['africa','americas','asia','europe','oceania']
 
 def main():
-    response = requests.get(
-        'https://restcountries.com/v2/all?fields=region,name,capital,languages'
-    )
-    countries = []
-    data = json.loads(response.text)
-    for element in data:
-        languages = element.get('languages')
-        languages_names = []
-        for language in languages:
-            name = language.get('name')
-            languages_names.append(name)
-        country_info = [
-            element.get('region'),
-            element.get('name'),
-            element.get('capital'),
-            languages_names,
-        ]
-        countries.append(country_info)
-    return print(countries[0])
+    countries = Countries().CountryList()
+    countries_list = []
+    for country in countries:
+        countries_list.append(
+            [
+                country.region,
+                country.name,
+                country.capital,
+                country.HashedLanguage(),
+            ]
+        )
+
+    DataFrame(countries_list)
+    return None
 
 if __name__ == '__main__':
     try:
