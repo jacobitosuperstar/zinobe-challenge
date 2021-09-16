@@ -5,8 +5,7 @@ from sqlalchemy import create_engine
 
 
 def SaveToSQLite(df:Iterable)->None:
-    '''
-    Guardado del dataframe en la base de datos de SQLite.
+    ''' Guardado del dataframe en la base de datos de SQLite.
 
     Si la base de datos se encuentra creada, no vuelve a crear la conexión
 
@@ -30,7 +29,8 @@ def SaveToJson(df:Iterable)->None:
     argumentos:
     df -> dataframe
     '''
-    df.to_json(r'zinobe_challenge.json',orient='index')
+    # df.to_json(r'zinobe_challenge.json',orient='index')
+    df.to_json(r'data.json',orient='index', force_ascii=False)
     return print('Archivo Json creado exitosamente')
 
 
@@ -80,6 +80,14 @@ def DataFrame(countries_list:list)->Iterable:
         ]
     )
     print(tabulate(df,headers='keys',tablefmt='psql'))
+    t_total = df['tiempo [ms]'].sum()
+    print('Tiempo Total Procesando la tabla: ', t_total, '[ms]')
+    t_promedio = df['tiempo [ms]'].mean()
+    print('Tiempo Promedio Procesando cada fila: ', t_promedio, '[ms]')
+    t_min = (df['tiempo [ms]'].min())*len(df.index)
+    print('Tiempo Promedio Mínimo Procesando toda la tabla: ', t_min, '[ms]')
+    t_max = (df['tiempo [ms]'].max())*len(df.index)
+    print('Tiempo Promedio Máximo Procesando toda la tabla: ', t_max, '[ms]')
     SaveToSQLite(df)
     SaveToJson(df)
     return df
