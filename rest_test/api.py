@@ -56,6 +56,7 @@ class Countries:
                 # en la función del decorador
                 t_start = time()*1000
                 country = Country(country_info)
+                country.languages = country.HashedLanguage()
                 t_end = time()*1000
                 country.time = t_end - t_start
                 country_list.append(country)

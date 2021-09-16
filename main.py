@@ -13,7 +13,8 @@ def main()->None:
                 country.region,
                 country.name,
                 country.capital,
-                country.HashedLanguage(),
+                # country.HashedLanguage(),
+                country.languages,
                 country.time,
             ]
         )
