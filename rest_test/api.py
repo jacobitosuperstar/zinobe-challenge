@@ -6,7 +6,8 @@ import json
 import hashlib
 # types
 from collections.abc import Iterable
-from .decorator import TimeTaken
+# time
+from time import time
 
 
 class Countries:
@@ -43,13 +44,20 @@ class Countries:
         country.capital
         country.languages
         country.HashedLanguage() -> método del objeto
+        country.time -> tiempo tardado para calcular el objeto
         '''
         response = requests.get(self.URL)
         if response.status_code == 200:
             data = json.loads(response.text)
             country_list = []
             for country_info in data:
+                # se quiere dejar por fuera del método la función de cálculo de
+                # tiempo, pero hay problemas al agregar la propiedad al objeto
+                # en la función del decorador
+                t_start = time()*1000
                 country = Country(country_info)
+                t_end = time()*1000
+                country.time = t_end - t_start
                 country_list.append(country)
             return country_list
         else:
@@ -91,3 +99,4 @@ class Country:
         self.name: ClassVar[str] = data.get('name')
         self.capital: ClassVar[str] = data.get('capital')
         self.languages: ClassVar[str] = data.get('languages')
+        self.time: ClassVar[int] = 0

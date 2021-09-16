@@ -56,6 +56,7 @@ def DataFrame(countries_list:list)->Iterable:
             'name',
             'capital',
             'hashed_language',
+            'time [ms]'
         ]
     )
     unique_regions = df.region.unique()
@@ -75,6 +76,7 @@ def DataFrame(countries_list:list)->Iterable:
             'país',
             'capital',
             'lenguaje codificado',
+            'tiempo [ms]'
         ]
     )
     print(tabulate(df,headers='keys',tablefmt='psql'))

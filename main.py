@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from rest_test.api import Countries
+from rest_test.decorator import TimeTaken
 from pandas_test.table import DataFrame
 
 
@@ -13,6 +14,7 @@ def main()->None:
                 country.name,
                 country.capital,
                 country.HashedLanguage(),
+                country.time,
             ]
         )
 

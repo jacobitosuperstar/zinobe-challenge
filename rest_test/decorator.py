@@ -10,5 +10,6 @@ def TimeTaken(func):
         result = func(*args, **kwargs)
         t_end = time()
         time_total = t_end - t_start
-        return result, time_total
+        result.time = time_total
+        return result
     return wrap_func
