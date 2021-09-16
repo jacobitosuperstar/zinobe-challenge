@@ -60,3 +60,15 @@ class test_constructor_class(unittest.TestCase):
         self.assertEqual(obj.capital,None)
         self.assertEqual(obj.languages,None)
         self.assertEqual(obj.time,0)
+
+    def test_constructor_types(self):
+        obj = Country(self.test_values_1)
+        self.assertTrue(type(self.test_values_1) is dict)
+        self.assertTrue(type(obj.region) is str)
+        self.assertTrue(type(obj.name) is str)
+        self.assertTrue(type(obj.capital) is str)
+        self.assertTrue(type(obj.languages) is str)
+        self.assertTrue(type(obj.time) is int)
+
+if __name__ == '__main__':
+    unittest.main()
